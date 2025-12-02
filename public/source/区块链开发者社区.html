@@ -127,6 +127,7 @@
         .community-table td {
             padding: 12px 15px;
             border-bottom: 1px solid #eee;
+            vertical-align: middle; /* 图片与文字垂直居中 */
         }
         
         .community-table tr:last-child td {
@@ -160,6 +161,14 @@
             height: 24px;
             margin-right: 8px;
             vertical-align: middle;
+            object-fit: contain; /* 防止图片变形 */
+        }
+        
+        /* 图片加载失败时显示备用样式 */
+        .platform-logo[src$="svg"]:not([src=""]) {
+            background: #f0f0f0;
+            border-radius: 4px;
+            padding: 2px;
         }
         
         footer {
@@ -241,7 +250,10 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><img src="https://ethereum.org/static/eth-diamond-rainbow.svg" alt="Ethereum" class="platform-logo"> Ethereum</td>
+                    <td>
+                        <img src="https://picsum.photos/id/237/24/24" alt="Ethereum" class="platform-logo"> 
+                        Ethereum
+                    </td>
                     <td>
                         <a href="https://ethereum.org/developers/" class="community-link" target="_blank">官方开发者文档</a><br>
                         <a href="https://ethereum.stackexchange.com/" class="community-link" target="_blank">Ethereum StackExchange</a><br>
@@ -252,7 +264,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><img src="https://solana.com/favicon.ico" alt="Solana" class="platform-logo"> Solana</td>
+                    <td>
+                        <img src="https://picsum.photos/id/1/24/24" alt="Solana" class="platform-logo"> 
+                        Solana
+                    </td>
                     <td>
                         <a href="https://docs.solana.com/" class="community-link" target="_blank">官方开发者文档</a><br>
                         <a href="https://discord.com/invite/solana" class="community-link" target="_blank">Discord社区</a><br>
@@ -263,7 +278,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><img src="https://polkadot.network/favicon-32x32.png" alt="Polkadot" class="platform-logo"> Polkadot</td>
+                    <td>
+                        <img src="https://picsum.photos/id/2/24/24" alt="Polkadot" class="platform-logo"> 
+                        Polkadot
+                    </td>
                     <td>
                         <a href="https://wiki.polkadot.network/docs/en/" class="community-link" target="_blank">Polkadot开发者文档</a><br>
                         <a href="https://substrate.dev/" class="community-link" target="_blank">Substrate框架</a><br>
@@ -274,7 +292,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><img src="https://confluxnetwork.org/favicon.ico" alt="Conflux" class="platform-logo"> Conflux</td>
+                    <td>
+                        <img src="https://picsum.photos/id/3/24/24" alt="Conflux" class="platform-logo"> 
+                        Conflux
+                    </td>
                     <td>
                         <a href="https://forum.conflux.fun/" class="community-link" target="_blank">社区论坛</a><br>
                         <a href="https://github.com/conflux-fans/Conflux123" class="community-link" target="_blank">GitHub资源</a><br>
@@ -285,7 +306,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><img src="https://hyperledger.org/wp-content/uploads/2020/04/cropped-favicon-32x32.png" alt="Hyperledger" class="platform-logo"> Hyperledger</td>
+                    <td>
+                        <img src="https://picsum.photos/id/4/24/24" alt="Hyperledger" class="platform-logo"> 
+                        Hyperledger
+                    </td>
                     <td>
                         <a href="https://www.hyperledger.org/" class="community-link" target="_blank">官方网站</a><br>
                         <a href="https://github.com/hyperledger" class="community-link" target="_blank">GitHub组织</a><br>
@@ -309,7 +333,10 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><img src="https://www.redditstatic.com/desktop2x/img/favicon/favicon-32x32.png" alt="Reddit" class="platform-logo"> Reddit</td>
+                    <td>
+                        <img src="https://picsum.photos/id/5/24/24" alt="Reddit" class="platform-logo"> 
+                        Reddit
+                    </td>
                     <td>
                         <a href="https://www.reddit.com/r/ethdev/" class="community-link" target="_blank">r/ethdev</a><br>
                         <a href="https://www.reddit.com/r/solana/" class="community-link" target="_blank">r/solana</a><br>
@@ -320,7 +347,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><img src="https://discord.com/assets/favicon.ico" alt="Discord" class="platform-logo"> Discord</td>
+                    <td>
+                        <img src="https://picsum.photos/id/6/24/24" alt="Discord" class="platform-logo"> 
+                        Discord
+                    </td>
                     <td>
                         <a href="https://discord.com/invite/ct5E3Rug" class="community-link" target="_blank">加密开发者社区</a><br>
                         <a href="https://discord.com/invite/defidevs" class="community-link" target="_blank">DeFi开发者</a><br>
@@ -331,7 +361,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><img src="https://telegram.org/favicon.ico" alt="Telegram" class="platform-logo"> Telegram</td>
+                    <td>
+                        <img src="https://picsum.photos/id/7/24/24" alt="Telegram" class="platform-logo"> 
+                        Telegram
+                    </td>
                     <td>
                         <a href="https://t.me/Conflux_English" class="community-link" target="_blank">Conflux官方</a><br>
                         <a href="https://t.me/EthereumDev" class="community-link" target="_blank">以太坊开发</a><br>
@@ -342,7 +375,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><img src="https://github.githubassets.com/favicons/favicon.svg" alt="GitHub" class="platform-logo"> GitHub</td>
+                    <td>
+                        <img src="https://picsum.photos/id/8/24/24" alt="GitHub" class="platform-logo"> 
+                        GitHub
+                    </td>
                     <td>
                         <a href="https://github.com/conflux-fans" class="community-link" target="_blank">Conflux社区</a><br>
                         <a href="https://github.com/ethereum" class="community-link" target="_blank">以太坊项目</a><br>
