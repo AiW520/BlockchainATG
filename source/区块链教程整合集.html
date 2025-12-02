@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>区块链教程 - 从基础到进阶的完整学习路径</title>
+    <script src="https://cdn.tailwindcss.com/3.3.3"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.5.0/mermaid.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: #2d3748;
+            overflow-x: hidden;
+        }
+        
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px 0 rgba(31, 38, 135, 0.2);
+        }
+        
+        .chart-container {
+            height: 320px;
+            width: 100%;
+            position: relative;
+        }
+        
+        .blob {
+            position: absolute;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            filter: blur(60px);
+            opacity: 0.2;
+            border-radius: 50%;
+            animation: blob-movement 15s infinite linear;
+            z-index: -2;
+        }
+        
+        @keyframes blob-movement {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(5%, -10%) scale(1.3); }
+            66% { transform: translate(-15%, 5%) scale(0.9); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+        
+        .highlight-text {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .highlight-text::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background-color: rgba(99, 102, 241, 0.2);
+            z-index: -1;
+        }
+        
+        .grid-mask {
+            background-image: radial-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        .staggered-entry {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        }
+        
+        .shadow-glow {
+            box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.5);
+        }
+        
+        .animate-pulse-slow {
+            animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .stat-card {
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: scale(1.02);
+        }
+        
+        .data-pill {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: 500;
+            background: rgba(99, 102, 241, 0.1);
+            color: #4f46e5;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .timeline-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #4f46e5;
+        }
+        
+        .timeline-line {
+            width: 2px;
+            background-color: #e5e7eb;
+        }
+        
+        /* 代码块样式 */
+        .code-block {
+            background-color: #1e293b;
+            border-radius: 8px;
+            padding: 1rem;
+            overflow-x: auto;
+            color: #e2e8f0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+        
+        .code-comment { color: #94a3b8; }
+        .code-keyword { color: #f472b6; }
+        .code-string { color: #a3e635; }
+        .code-number { color: #60a5fa; }
+        .code-function { color: #38bdf8; }
+        
+        /* 移动端导航菜单样式 */
+        .mobile-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            margin: 0.5rem;
+            border-radius: 0.75rem;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            transform-origin: top;
+            transform: scaleY(0);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            z-index: 100;
+        }
+        
+        .mobile-menu.active {
+            transform: scaleY(1);
+            opacity: 1;
+        }
+        
+        .mobile-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .mobile-menu a:hover, .mobile-menu a:focus {
+            background-color: rgba(99, 102, 241, 0.1);
+            color: #4f46e5;
+        }
+        
+        /* 侧边导航样式 */
+        .sidebar {
+            position: sticky;
+            top: 3rem;
+            height: calc(100vh - 6rem);
+            overflow-y: auto;
+            padding-right: 1rem;
+        }
+        
+        .sidebar-item {
+            padding: 0.5rem 0;
+            transition: all 0.2s ease;
+        }
+        
+        .sidebar-item a {
+            display: block;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            color: #4b5563;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        
+        .sidebar-item a:hover, .sidebar-item a:focus {
+            background-color: rgba(99, 102, 241, 0.1);
+            color: #4f46e5;
+        }
+        
+        .sidebar-item.active a {
+            background-color: rgba(99, 102, 241, 0.1);
+            color: #4f46e5;
+            font-weight: 500;
+        }
+        
+        .sidebar-subitem {
+            padding-left: 1.5rem;
+            font-size: 0.875rem;
+        }
+        
+        /* 教程卡片样式 */
+        .tutorial-card {
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .tutorial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px 0 rgba(31, 38, 135, 0.2);
+        }
+        
+        .tutorial-card-header {
+            padding: 1rem;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+        }
+        
+        .tutorial-card-body {
+            padding: 1.5rem;
+            background-color: white;
+        }
+        
+        .tutorial-card-footer {
+            padding: 1rem 1.5rem;
+            background-color: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .tutorial-link {
+            display: inline-flex;
+            align-items: center;
+            color: #4f46e5;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        
+        .tutorial-link:hover {
+            color: #3730a3;
+            transform: translateX(3px);
+        }
+        
+        .tutorial-link i {
+            margin-left: 0.5rem;
+            transition: transform 0.2s ease;
+        }
+        
+        .tutorial-link:hover i {
+            transform: translateX(3px);
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="blob w-96 h-96 top-0 left-0"></div>
+    <div class="blob w-80 h-80 bottom-0 right-0"></div>
+
+    <!-- 导航条 -->
+    <nav class="glassmorphism sticky top-0 z-50 p-4 mb-8" id="mainNav">
+        <div class="container mx-auto flex items-center justify-between">
+            <div class="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 text-transparent bg-clip-text">
+                <i class="fas fa-link mr-2"></i>区块链教程
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="#basics" class="text-gray-600 hover:text-indigo-600 transition-colors">基础理论</a>
+                <a href="#technical" class="text-gray-600 hover:text-indigo-600 transition-colors">技术原理</a>
+                <a href="#practice" class="text-gray-600 hover:text-indigo-600 transition-colors">实战案例</a>
+                <a href="#trends" class="text-gray-600 hover:text-indigo-600 transition-colors">行业趋势</a>
+            </div>
+            <button class="md:hidden text-gray-600 focus:outline-none" id="mobileMenuButton" aria-label="导航菜单">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+
+            <!-- 移动端导航菜单 -->
+            <div class="mobile-menu md:hidden" id="mobileMenu">
+                <a href="#basics" class="text-gray-600 hover:text-indigo-600 transition-colors flex items-center">
+                    <i class="fas fa-book mr-3 text-indigo-500"></i>基础理论
+                </a>
+                <a href="#technical" class="text-gray-600 hover:text-indigo-600 transition-colors flex items-center">
+                    <i class="fas fa-code mr-3 text-indigo-500"></i>技术原理
+                </a>
+                <a href="#practice" class="text-gray-600 hover:text-indigo-600 transition-colors flex items-center">
+                    <i class="fas fa-laptop-code mr-3 text-indigo-500"></i>实战案例
+                </a>
+                <a href="#trends" class="text-gray-600 hover:text-indigo-600 transition-colors flex items-center">
+                    <i class="fas fa-chart-line mr-3 text-indigo-500"></i>行业趋势
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 头部横幅 -->
+    <header class="container mx-auto py-16 px-4 md:px-8 relative">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">区块链教程</h1>
+            <p class="text-xl md:text-2xl text-gray-600 mb-8">从基础到进阶的完整学习路径</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <div class="stat-card glassmorphism p-4 text-center w-32">
+                    <div class="text-sm text-gray-500">基础理论</div>
+                    <div class="text-2xl font-bold text-indigo-600">4门课程</div>
+                </div>
+                <div class="stat-card glassmorphism p-4 text-center w-32">
+                    <div class="text-sm text-gray-500">技术原理</div>
+                    <div class="text-2xl font-bold text-indigo-600">4门课程</div>
+                </div>
+                <div class="stat-card glassmorphism p-4 text-center w-32">
+                    <div class="text-sm text-gray-500">实战案例</div>
+                    <div class="text-2xl font-bold text-indigo-600">4门课程</div>
+                </div>
+                <div class="stat-card glassmorphism p-4 text-center w-32">
+                    <div class="text-sm text-gray-500">行业趋势</div>
+                    <div class="text-2xl font-bold text-indigo-600">4门课程</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要内容区域 -->
+    <main class="container mx-auto py-8 px-4 md:px-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- 侧边导航 -->
+            <aside class="sidebar lg:w-64 glassmorphism p-6 rounded-xl">
+                <h3 class="text-lg font-semibold mb-4 text-gray-800">目录索引</h3>
+                <ul>
+                    <li class="sidebar-item">
+                        <a href="#basics">
+                            <i class="fas fa-book mr-2"></i>基础理论
+                        </a>
+                        <ul class="sidebar-subitem mt-2">
+                            <li class="sidebar-item">
+                                <a href="#core-concepts">区块链核心概念</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="#platforms">主流区块链平台</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#technical">
+                            <i class="fas fa-code mr-2"></i>技术原理
+                        </a>
+                        <ul class="sidebar-subitem mt-2">
+                            <li class="sidebar-item">
+                                <a href="#smart-contracts">智能合约开发</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="#consensus">共识机制与加密算法</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#practice">
+                            <i class="fas fa-laptop-code mr-2"></i>实战案例
+                        </a>
+                        <ul class="sidebar-subitem mt-2">
+                            <li class="sidebar-item">
+                                <a href="#dapp">以太坊DApp开发</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="#consortium">联盟链应用</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#trends">
+                            <i class="fas fa-chart-line mr-2"></i>行业趋势
+                        </a>
+                        <ul class="sidebar-subitem mt-2">
+                            <li class="sidebar-item">
+                                <a href="#web3-defi">Web3与DeFi</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="#cross-chain">跨链与Layer2解决方案</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </aside>
+
+            <!-- 主要内容 -->
+            <div class="flex-1">
+                <!-- 区块链概览图表 -->
+                <section class="glassmorphism p-8 mb-12 rounded-xl">
+                    <h2 class="text-2xl font-bold mb-6 flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-gradient-primary flex items-center justify-center text-white mr-3">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        区块链技术概览
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="chart-container">
+                            <canvas id="blockchainChart"></canvas>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4">区块链技术生态分布</h3>
+                            <p class="mb-4">区块链技术已从单一的加密货币应用扩展到多个领域，形成了完整的技术生态系统。本图表展示了当前区块链技术在各领域的应用分布情况。</p>
+                            <div class="flex flex-wrap">
+                                <div class="data-pill"><i class="fas fa-landmark mr-1"></i> 金融服务</div>
+                                <div class="data-pill"><i class="fas fa-shield-alt mr-1"></i> 供应链溯源</div>
+                                <div class="data-pill"><i class="fas fa-vote-yea mr-1"></i> 治理</div>
+                                <div class="data-pill"><i class="fas fa-copyright mr-1"></i> 知识产权</div>
+                                <div class="data-pill"><i class="fas fa-heartbeat mr-1"></i> 医疗健康</div>
+                                <div class="data-pill"><i class="fas fa-graduation-cap mr-1"></i> 教育</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 基础理论部分 -->
+                <section id="basics" class="mb-16">
+                    <h2 class="text-3xl font-bold mb-8 text-center">基础理论</h2>
+                    
+                    <!-- 区块链核心概念 -->
+                    <div id="core-concepts" class="glassmorphism p-8 mb-12 rounded-xl">
+                        <h3 class="text-2xl font-semibold mb-6 flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 mr-3">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            区块链核心概念
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="tutorial-card">
+                                <div class="tutorial-card-header">
+                                    <h4 class="font-semibold">区块链基础教程</h4>
+                                    <p class="text-sm opacity-90">CSDN博客</p>
+                                </div>
+                                <div class="tutorial-card-body">
+                                    <p class="mb-4">本教程介绍了区块链的基本定义、工作原理、去中心化特性、哈希函数与非对称加密基础等核心概念。</p>
+                                    <div class="flex flex-wrap mb-4">
+                                        <div class="data-pill text-xs">区块链定义</div>
+                                        <div class="data-pill text-xs">工作原理</div>
+                                        <div class="data-pill text-xs">去中心化</div>
+                                        <div class="data-pill text-xs">哈希函数</div>
+                                        <div class="data-pill text-xs">非对称加密</div>
+                                    </div>
+                                </div>
+                                <div class="tutorial-card-footer">
+                                    <a href="https://blog.csdn.net/weixin_34122810/article/details/92411525" class="tutorial-link" target="_blank">
+                                        查看教程 <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="tutorial-card">
+                                <div class="tutorial-card-header">
+                                    <h4 class="font-semibold">Web3 Foundations</h4>
+                                    <p class="text-sm opacity-90">The Blockchain Academy</p>
+                                </div>
+                                <div class="tutorial-card-body">
+                                    <p class="mb-4">本课程深入讲解分布式账本技术、区块链与传统数据库的区别以及加密货币的基础原理。</p>
+                                    <div class="flex flex-wrap mb-4">
+                                        <div class="data-pill text-xs">分布式账本</div>
+                                        <div class="data-pill text-xs">数据库对比</div>
+                                        <div class="data-pill text-xs">加密货币</div>
+                                        <div class="data-pill text-xs">Web3基础</div>
+                                    </div>
+                                </div>
+                                <div class="tutorial-card-footer">
+                                    <a href="https://theblockchainacademy.com/web3-foundations/" class="tutorial-link" target="_blank">
+                                        查看教程 <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 区块链工作原理示意图 -->
+                        <div class="mt-12">
+                            <h4 class="text-xl font-semibold mb-4">区块链工作原理示意图</h4>
+                            <div id="blockchainDiagram" class="w-full h-80"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- 主流区块链平台概述 -->
+                    <div id="platforms" class="glassmorphism p-8 rounded-xl">
+                        <h3 class="text-2xl font-semibold mb-6 flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 mr-3">
+                                <i class="fas fa-layer-group"></i>
+                            </div>
+                            主流区块链平台概述
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="tutorial-card">
+                                <div class="tutorial-card-header">
+                                    <h4 class="font-semibold">Polkadot Blockchain Academy eXplore</h4>
+                                    <p class="text-sm opacity-90">PBA-X</p>
+                                </div>
+                                <div class="tutorial-card-body">
+                                    <p class="mb-4">本教程介绍了Polkadot架构、跨链通信、Substrate框架入门等内容，适合零基础学习者。</p>
+                                    <div class="flex flex-wrap mb-4">
+                                        <div class="data-pill text-xs">Polkadot架构</div>
+                                        <div class="data-pill text-xs">跨链通信</div>
+                                        <div class="data-pill text-xs">Substrate框架</div>
+                                        <div class="data-pill text-xs">零基础入门</div>
+                                    </div>
+                                </div>
+                                <div class="tutorial-card-footer">
+                                    <a href="https://juejin.cn/post/7503762731348820022" class="tutorial-link" target="_blank">
+                                        查看教程 <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="tutorial-card">
+                                <div class="tutorial-card-header">
+                                    <h4 class="font-semibold">以太坊官方文档 - 以太坊指南</h4>
+                                    <p class="text-sm opacity-90">Ethereum.org</p>
+                                </div>
+                                <div class="tutorial-card-body">
+                                    <p class="mb-4">以太坊官方指南，详细介绍了以太坊账户模型、Gas机制、智能合约基础等内容，2024年更新。</p>
+                                    <div class="flex flex-wrap mb-4">
+                                        <div class="data-pill text-xs">账户模型</div>
+                                        <div class="data-pill text-xs">Gas机制</div>
+                                        <div class="data-pill text-xs">智能合约</div>
+                                        <div class="data-pill text-xs">官方文档</div>
+                                    </div>
+                                </div>
+                                <div class="tutorial-card-footer">
+                                    <a href="https://ethereum.org/zh/guides/" class="tutorial-link" target="_blank">
+                                        查看教程 <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 主流区块链平台对比 -->
+                        <div class="mt-12">
+                            <h4 class="text-xl font-semibold mb-4">主流区块链平台对比</h4>
+                            <div class="chart-container">
+                                <canvas id="platformsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 技术原理部分 -->
+                <section id="technical" class="mb-16">
+                    <h2 class="text-3xl font-bold mb-8 text-center">技术原理</h2>
+                    
+                    <!-- 智能合约开发 -->
+                    <div id="smart-contracts" class="glassmorphism p-8 mb-12 rounded-xl">
+                        <h3 class="text-2xl font-semibold mb-6 flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 mr-3">
+                                <i class="fas fa-file-code"></i>
+                            </div>
+                            智能合约开发
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="tutorial-card">
+                                <div class="tutorial-card-header">
+                                    <h4 class="font-semibold">Solidity智能合约开发实战</h4>
+                                    <p class="text-sm opacity-90">慕课网</p>
+                                </div>
+                                <div class="tutorial-card-body">
+                                    <p class="mb-4">本课程涵盖Solidity语法、Truffle框架、智能合约部署与测试，包含众筹项目实战案例。</p>
+                                    <div class="flex flex-wrap mb-4">
+                                        <div class="data-pill text-xs">Solidity语法</div>
+                                        <div class="data-pill text-xs">Truffle框架</div>
+                                        <div class="data-pill text-xs">合约部署</div>
+                                        <div class="data-pill text-xs">众筹项目</div>
+                                    </div>
+                                    
+                                    <!-- 代码示例 -->
+                                    <div class="code-block mt-4">
+                                        <pre><span class="code-keyword">pragma</span> solidity ^0.8.0;
+
+<span class="code-keyword">contract</span> <span class="code-function">SimpleStorage</span> {
+    <span class="code-keyword">uint</span> <span class="code-keyword">public</span> data;
+    
+    <span class="code-keyword">function</span> <span class="code-function">set</span>(<span class="code-keyword">uint</span> _data) <span class="code-keyword">public</span> {
+        data = _data;
+    }
+    
+    <span class="code-keyword">function</span> <span class="code-function">get</span>() <span class="code-keyword">public</span> <span class="code-keyword">view</span> <span class="code-keyword">returns</span> (<span class="code-keyword">uint</span>) {
+        <span class="code-keyword">return</span> data;
+    }
+}</pre>
+                                    </div>
+                                </div>
+                                <div class="tutorial-card-footer">
+                                    <a href="https://coding.imooc.com/class/648.html" class="tutorial-link" target="_blank">
+                                        查看教程 <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="tutorial-card">
+                                <div class="tutorial-card-header">
+                                    <h4 class="font-semibold">Hyperledger Fabric智能合约开发</h4>
+                                    <p class="text-sm opacity-90">51CTO博客</p>
+                                </div>
+                                <div class="tutorial-card-body">
+                                    <p class="mb-4">本教程详细讲解链码开发、Fabric网络搭建、Java SDK交互，附详细代码示例。</p>
+                                    <div class="flex flex-wrap mb-4">
+                                        <div class="data-pill text-xs">链码开发</div>
+                                        <div class="data-pill text-xs">Fabric网络</div>
+                                        <div class="data-pill text-xs">Java SDK</div>
+                                        <div class="data-pill text-xs">企业级应用</div>
+                                    </div>
+                                    
+                                    <!-- 代码示例 -->
+                                    <div class="code-block mt-4">
+                                        <pre><span class="code-keyword">public</span> <span class="code-keyword">class</span> <span class="code-function">SimpleAsset</span> <span class="code-keyword">implements</span> Contract {
+    <span class="code-keyword">private</span> <span class="code-keyword">final</span> Map&lt;String, String&gt; assetMap = <span class="code-keyword">new</span> HashMap&lt;&gt;();
+    
+    <span class="code-comment">// 创建资产</span>
+    <span class="code-keyword">public</span> <span class="code-keyword">void</span> <span class="code-function">createAsset</span>(Context ctx, String assetId, String value) {
+        <span class="code-keyword">if</span> (assetMap.containsKey(assetId)) {
+            <span class="code-keyword">throw</span> <span class="code-keyword">new</span> RuntimeException(<span class="code-string">"Asset already exists"</span>);
+        }
+        assetMap.put(assetId, value);
+    }
+    
+    <span class="code-comment">// 读取资产</span>
+    <span class="code-keyword">public</span> String <span class="code-function">readAsset</span>(Context ctx, String assetId) {
+        String asset = assetMap.get(assetId);
+        <span class="code-keyword">if</span> (asset == <span class="code-keyword">null</span>) {
+            <span class="code-keyword">throw</span> <span class="code-keyword">new</span> RuntimeException(<span class="code-string">"Asset not found"</span>);
+        }
+        <span class="code-keyword">return</span> asset;
+    }
+}</pre>
+                                    </div>
+                                </div>
+                                <div class="tutorial-card-footer">
+                                    <a href="https://blog.51cto.com/u_16099241/8946107" class="tutorial-link" target="_blank">
+                                        查看教程 <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 共识机制与加密算法 -->
+                    <div id="consensus" class="glassmorphism p-8 rounded-xl">
+                        <h3 class="text-2xl font-semibold mb-6 flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 mr-3">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            共识机制与加密算法
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="tutorial-card">
+                                <div class="tutorial-card-header">
+                                    <h4 class="font-semibold">区块链密码学基础</h4>
+                                    <p class="text-sm opacity-90">Coursera</p>
+                                </div>
+                                <div class="tutorial-card-body">
+                                    <p class="mb-4">本课程深入讲解哈希函数、数字签名、Merkle树、PoW与PoS共识算法原理等区块链核心密码学知识。</p>
+                                    <div class="flex flex-wrap mb-4">
+                                        <div class="data-pill text-xs">哈希函数</div>
+                                        <div class="data-pill text-xs">数字签名</div>
+                                        <div class="data-pill text-xs">Merkle树</div>
+                                        <div class="data-pill text-xs">PoW</div>
+                                        <div class="data-pill text-xs">PoS</div>
+                                    </div>
+                                </div>
+                                <div class="tutorial-card-footer">
+                                    <a href="https://www.coursera.org/learn/blockchain-basics" class="tutorial-link" target="_blank">
+                                        查看教程 <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="tutorial-card">
+                                <div class="tutorial-card-header">
+                                    <h4 class="font-semibold">以太坊Pectra升级全指南</h4>
+                                    <p class="text-sm opacity-90">币界网</p>
+                                </div>
+                                <div class="tutorial-card-body">
+                                    <p class="mb-4">本指南详细解析EIP-7702账户抽象、验证者体验优化、Blob扩展等以太坊最新技术升级的技术细节。</p>
+                                    <div class="flex flex-wrap mb-4">
+                                        <div class="data-pill text-xs">EIP-7702</div>
+                                        <div class="data-pill text-xs">账户抽象</div>
+                                        <div class="data-pill text-xs">验证者优化</div>
+                                        <div class="data-pill text-xs">Blob扩展</div>
+                                    </div>
+                                </div>
+                                <div class="tutorial-card-footer">
+                                    <a href="https://www.528btc.com/news/116284019.html" class="tutorial-link" target="_blank">
+                                        查看教程 <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 共识机制对比图 -->
+                        <div class="mt-12">
+                            <h4 class="text-xl font-semibold mb-4">主流共识机制对比</h4>
+                            <div id="consensusDiagram" class="w-full h-80"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 实战案例部分 -->
+                <section id="practice" class="mb-16">
+                    <h2 class="text-3xl font-bold mb-8 text-center">实战案例</h2>
+                    
+                    <!-- 以太坊DApp开发 -->
+                    <div id="dapp" class="glassmorphism p-8 mb-12 rounded-xl">
+                        <h3 class="text-2xl font-semibold mb-6 flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600 mr-3">
+                                <i class="fas fa-laptop-code"></i>
+                            </div>
+                            以太坊DApp开发
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="tutorial-card">
+                                <div class="tutorial-card-header">
+                                    <h4 class="font-semibold">以太坊电商DApp实战</h4>
+                                    <p class="text-sm opacity-90">CSDN博客</p>
+                                </div>
+                                <div class="tutorial-card-body">
+                                    <p class="mb-4">本教程指导如何基于以太坊+IPFS构建去中心化电商平台，包含智能合约与前端交互的完整实现。</p>
+                                    <div class="flex flex-wrap mb-4">
+                                        <div class="data-pill text-xs">以太坊</div>
+                                        <div class="data-pill text-xs">IPFS</div>
+                                        <div class="data-pill text-xs">电商平台</div>
+                                        <div class="data-pill text-xs">前端交互</div>
+                                    </div>
+                                </div>
+                                <div class="tutorial-card-footer">
+                                    <a href="https://blog.csdn.net/weixin_34122810/article/details/92411525" class="tutorial-link" target="_blank">
+                                        查看教程 <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="tutorial-card">
+                                <div class="tutorial-card-header">
+                                    <h4 class="font-semibold">Foundry开发框架教程</h4>
+                                    <p class="text-sm opacity-90">GoalQuest</p>
+                                </div>
+                                <div class="tutorial-card-body">
+                                    <p class="mb-4">本教程详细介绍Foundry工具链使用、智能合约测试、Gas优化技巧，适合进阶开发者学习。</p>
+                                    <div class="flex flex-wrap mb-4">
+                                        <div class="data-pill text-xs">Foundry</div>
+                                        <div class="data-pill text-xs">合约测试</div>
+                                        <div class="data-pill text-xs">Gas优化</div>
+                                        <div class="data-pill text-xs">进阶开发</div>
+                                    </div>
+                                </div>
+                                <div class="tutorial-card-footer">
+                                    <a href="https://juejin.cn/post/7469695820553273344" class="tutorial-link" target="_blank">
+                                        查看教程 <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- DApp架构图 -->
+                        <div class="mt-12">
+                            <h4 class="text-xl font-semibold mb-4">DApp架构示意图</h4>
+                            <div id="dappDiagram" class="w-full h-80"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- 联盟链应用 -->
+                    <div id="consortium" class="glassmorphism p-8 rounded-xl">
+                        <h3 class="text-2xl font-semibold mb-6 flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600 mr-3">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            联盟链应用
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="tutorial-card">
+                                <div class="tutorial-card-header">
+                                    <h4 class="font-semibold">Hyperledger Fabric生产环境搭建</h4>
+                                    <p class="text-sm opacity-90">掘金</p>
+                                </div>
+                                <div class="tutorial-card-body">
+                                    <p class="mb-4">本教程详细讲解多节点网络部署、通道配置、链码升级等企业级联盟链实践指南。</p>
+                                    <div class="flex flex-wrap mb-4">
+                                        <div class="data-pill text-xs">多节点部署</div>
+                                        <div class="data-pill text-xs">通道配置</div>
+                                        <div class="data-pill text-xs">链码升级</div>
+                                        <div class="data-pill text-xs">企业级应用</div>
+                                    </div>
+                                </div>
+                                <div class="tutorial-card-footer">
+                                    <a href="https://juejin.cn/post/7252508307647086647" class="tutorial-link" target="_blank">
+                                        查看教程 <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="tutorial-card">
+                                <div class="tutorial-card-header">
+                                    <h4 class="font-semibold">FISCO BCOS应用开发</h4>
+                                    <p class="text-sm opacity-90">FISCO官网</p>
+                                </div>
+                                <div class="tutorial-card-body">
+                                    <p class="mb-4">本教程介绍存证合约开发、WeBASE中间件使用、性能优化（单链10万TPS实现）等内容。</p>
+                                    <div class="flex flex-wrap mb-4">
+                                        <div class="data-pill text-xs">存证合约</div>
+                                        <div class="data-pill text-xs">WeBASE中间件</div>
+                                        <div class="data-pill text-xs">性能优化</div>
+                                        <div class="data-pill text-xs">高TPS</div>
+                                    </div>
+                                </div>
+                                <div class="tutorial-card-footer">
+                                    <a href="https://www.fisco.com.cn/en/class_32/555.html" class="tutorial-link" target="_blank">
+                                        查看教程 <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 行业趋势部分 -->
+                <section id="trends" class="mb-16">
+                    <h2 class="text-3xl font-bold mb-8 text-center">行业趋势</h2>
+                    
+                    <!-- Web3与去中心化金融（DeFi） -->
+                    <div id="web3-defi" class="glassmorphism p-8 mb-12 rounded-xl">
+                        <h3 class="text-2xl font-semibold mb-6 flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 mr-3">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            Web3与去中心化金融（DeFi）
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="tutorial-card">
+                                <div class="tutorial-card-header">
+                                    <h4 class="font-semibold">MIT区块链与加密应用</h4>
+                                    <p class="text-sm opacity-90">MIT Sloan</p>
+                                </div>
+                                <div class="tutorial-card-body">
+                                    <p class="mb-4">本课程深入分析DeFi协议、NFT经济模型、Web3治理机制等前沿内容，2025年最新课程。</p>
+                                    <div class="flex flex-wrap mb-4">
+                                        <div class="data-pill text-xs">DeFi协议</div>
+                                        <div class="data-pill text-xs">NFT经济</div>
+                                        <div class="data-pill text-xs">Web3治理</div>
+                                        <div class="data-pill text-xs">MIT课程</div>
+                                    </div>
+                                </div>
+                                <div class="tutorial-card-footer">
+                                    <a href="http://www.shturl.cc/1964e4517e5c1a1b7f6e314c2b09aebe" class="tutorial-link" target="_blank">
+                                        查看教程 <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="tutorial-card">
+                                <div class="tutorial-card-header">
+                                    <h4 class="font-semibold">Chainlink预言机实战</h4>
+                                    <p class="text-sm opacity-90">Alchemy文档</p>
+                                </div>
+                                <div class="tutorial-card-body">
+                                    <p class="mb-4">本教程详细介绍Chainlink VRF随机数、价格喂价、智能合约外部数据交互等实用技术。</p>
+                                    <div class="flex flex-wrap mb-4">
+                                        <div class="data-pill text-xs">Chainlink</div>
+                                        <div class="data-pill text-xs">VRF随机数</div>
+                                        <div class="data-pill text-xs">价格喂价</div>
+                                        <div class="data-pill text-xs">外部数据交互</div>
+                                    </div>
+                                </div>
+                                <div class="tutorial-card-footer">
+                                    <a href="https://docs.alchemy.com/docs" class="tutorial-link" target="_blank">
+                                        查看教程 <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- DeFi生态图表 -->
+                        <div class="mt-12">
+                            <h4 class="text-xl font-semibold mb-4">DeFi生态系统分布</h4>
+                            <div class="chart-container">
+                                <canvas id="defiChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 跨链与Layer2解决方案 -->
+                    <div id="cross-chain" class="glassmorphism p-8 rounded-xl">
+                        <h3 class="text-2xl font-semibold mb-6 flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 mr-3">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                            跨链与Layer2解决方案
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="tutorial-card">
+                                <div class="tutorial-card-header">
+                                    <h4 class="font-semibold">以太坊Layer2扩容技术</h4>
+                                    <p class="text-sm opacity-90">以太坊官网</p>
+                                </div>
+                                <div class="tutorial-card-body">
+                                    <p class="mb-4">本教程详细讲解Optimism、Arbitrum工作原理、Blob数据存储优化（EIP-7691）等以太坊扩容技术。</p>
+                                    <div class="flex flex-wrap mb-4">
+                                        <div class="data-pill text-xs">Optimism</div>
+                                        <div class="data-pill text-xs">Arbitrum</div>
+                                        <div class="data-pill text-xs">Blob存储</div>
+                                        <div class="data-pill text-xs">EIP-7691</div>
+                                    </div>
+                                </div>
+                                <div class="tutorial-card-footer">
+                                    <a href="https://ethereum.org/zh/roadmap/" class="tutorial-link" target="_blank">
+                                        查看教程 <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="tutorial-card">
+                                <div class="tutorial-card-header">
+                                    <h4 class="font-semibold">Solana开发入门</h4>
+                                    <p class="text-sm opacity-90">Solana官网</p>
+                                </div>
+                                <div class="tutorial-card-body">
+                                    <p class="mb-4">本教程介绍Solana程序开发、Rust语言应用、高并发DApp构建等内容，适合想要学习高性能区块链开发的开发者。</p>
+                                    <div class="flex flex-wrap mb-4">
+                                        <div class="data-pill text-xs">Solana</div>
+                                        <div class="data-pill text-xs">Rust语言</div>
+                                        <div class="data-pill text-xs">高并发</div>
+                                        <div class="data-pill text-xs">DApp开发</div>
+                                    </div>
+                                </div>
+                                <div class="tutorial-card-footer">
+                                    <a href="https://docs.solana.com/getstarted/hello-world" class="tutorial-link" target="_blank">
+                                        查看教程 <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 跨链架构图 -->
+                        <div class="mt-12">
+                            <h4 class="text-xl font-semibold mb-4">跨链架构示意图</h4>
+                            <div id="crossChainDiagram" class="w-full h-80"></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="glassmorphism py-8 px-4">
+        <div class="container mx-auto text-center">
+            <p class="text-gray-600 mb-2">created by <a href="https://space.coze.cn" class="text-indigo-600 hover:text-indigo-800 transition-colors">coze space</a></p>
+            <p class="text-gray-500 text-sm">页面内容均由 AI 生成，仅供参考</p>
+        </div>
+    </footer>
+
+    <script>
+        // 初始化Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            themeVariables: {
+                primaryColor: '#6366f1',
+                primaryTextColor: '#ffffff',
+                primaryBorderColor: '#818cf8',
+                lineColor: '#6366f1',
+                secondaryColor: '#e0e7ff',
+                tertiaryColor: '#c7d2fe'
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // 平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+
+                    // 点击导航链接后关闭移动端菜单
+                    const mobileMenu = document.getElementById('mobileMenu');
+                    if (mobileMenu.classList.contains('active')) {
+                        mobileMenu.classList.remove('active');
+                        // 同时切换图标回汉堡按钮
+                        const menuIcon = document.querySelector('#mobileMenuButton i');
+                        menuIcon.classList.remove('fa-times');
+                        menuIcon.classList.add('fa-bars');
+                    }
+                });
+            });
+
+            // 移动端导航菜单切换
+            const menuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            menuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('active');
+
+                // 切换图标
+                const icon = this.querySelector('i');
+                if (mobileMenu.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+
+            // 点击页面其他区域关闭移动端菜单
+            document.addEventListener('click', function(event) {
+                const isClickInsideNav = document.getElementById('mainNav').contains(event.target);
+
+                if (!isClickInsideNav && mobileMenu.classList.contains('active')) {
+                    mobileMenu.classList.remove('active');
+                    const icon = menuButton.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+
+            // 区块链技术概览图表
+            const blockchainCtx = document.getElementById('blockchainChart').getContext('2d');
+            new Chart(blockchainCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['金融服务', '供应链溯源', '治理', '知识产权', '医疗健康', '教育', '其他'],
+                    datasets: [{
+                        data: [35, 20, 15, 10, 8, 7, 5],
+                        backgroundColor: [
+                            '#6366f1',
+                            '#8b5cf6',
+                            '#ec4899',
+                            '#f43f5e',
+                            '#10b981',
+                            '#3b82f6',
+                            '#6b7280'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                        },
+                        title: {
+                            display: true,
+                            text: '区块链技术应用领域分布'
+                        }
+                    }
+                }
+            });
+
+            // 主流区块链平台对比图表
+            const platformsCtx = document.getElementById('platformsChart').getContext('2d');
+            new Chart(platformsCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['性能', '安全性', '可扩展性', '开发者友好度', '生态系统', '去中心化程度'],
+                    datasets: [
+                        {
+                            label: '以太坊',
+                            data: [65, 90, 70, 85, 95, 90],
+                            backgroundColor: 'rgba(99, 102, 241, 0.2)',
+                            borderColor: 'rgba(99, 102, 241, 1)',
+                            pointBackgroundColor: 'rgba(99, 102, 241, 1)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgba(99, 102, 241, 1)'
+                        },
+                        {
+                            label: 'Polkadot',
+                            data: [80, 85, 90, 75, 70, 85],
+                            backgroundColor: 'rgba(139, 92, 246, 0.2)',
+                            borderColor: 'rgba(139, 92, 246, 1)',
+                            pointBackgroundColor: 'rgba(139, 92, 246, 1)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgba(139, 92, 246, 1)'
+                        },
+                        {
+                            label: 'Solana',
+                            data: [95, 70, 95, 70, 65, 75],
+                            backgroundColor: 'rgba(236, 72, 153, 0.2)',
+                            borderColor: 'rgba(236, 72, 153, 1)',
+                            pointBackgroundColor: 'rgba(236, 72, 153, 1)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgba(236, 72, 153, 1)'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }
+                }
+            });
+
+            // DeFi生态系统分布图表
+            const defiCtx = document.getElementById('defiChart').getContext('2d');
+            new Chart(defiCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['借贷', 'DEX', '稳定币', '衍生品', '收益聚合器', '保险', '跨链桥'],
+                    datasets: [{
+                        label: '市场占比(%)',
+                        data: [35, 25, 15, 10, 8, 4, 3],
+                        backgroundColor: [
+                            'rgba(99, 102, 241, 0.6)',
+                            'rgba(139, 92, 246, 0.6)',
+                            'rgba(236, 72, 153, 0.6)',
+                            'rgba(244, 63, 94, 0.6)',
+                            'rgba(16, 185, 129, 0.6)',
+                            'rgba(59, 130, 246, 0.6)',
+                            'rgba(245, 158, 11, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(99, 102, 241, 1)',
+                            'rgba(139, 92, 246, 1)',
+                            'rgba(236, 72, 153, 1)',
+                            'rgba(244, 63, 94, 1)',
+                            'rgba(16, 185, 129, 1)',
+                            'rgba(59, 130, 246, 1)',
+                            'rgba(245, 158, 11, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+
+            // 渲染Mermaid图表
+            // 区块链工作原理示意图
+            const blockchainDiagram = `
+                graph TD
+                    A[交易发起] --> B[交易验证]
+                    B --> C[交易打包]
+                    C --> D[区块创建]
+                    D --> E[区块共识]
+                    E --> F[区块添加到链]
+                    F --> G[交易完成]
+                    
+                    subgraph 共识机制
+                        E1[工作量证明PoW]
+                        E2[权益证明PoS]
+                        E3[委托权益证明DPoS]
+                        E4[实用拜占庭容错PBFT]
+                    end
+                    
+                    E --> E1
+                    E --> E2
+                    E --> E3
+                    E --> E4
+                    
+                    style A fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+                    style B fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+                    style C fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+                    style D fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+                    style E fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+                    style F fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+                    style G fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+            `;
+            
+            // 共识机制对比图
+            const consensusDiagram = `
+                flowchart TD
+                    subgraph 共识机制
+                        A[工作量证明\nPoW] -->|能耗高| B[比特币]
+                        C[权益证明\nPoS] -->|节能| D[以太坊2.0]
+                        E[委托权益证明\nDPoS] -->|高效| F[EOS]
+                        G[实用拜占庭容错\nPBFT] -->|企业级| H[Hyperledger Fabric]
+                        I[权威证明\nPoA] -->|许可链| J[VeChain]
+                    end
+                    
+                    K[安全性] --> A
+                    K --> C
+                    K --> E
+                    K --> G
+                    K --> I
+                    
+                    L[性能] --> A
+                    L --> C
+                    L --> E
+                    L --> G
+                    L --> I
+                    
+                    M[去中心化] --> A
+                    M --> C
+                    M --> E
+                    M --> G
+                    M --> I
+                    
+                    N[资源消耗] --> A
+                    N --> C
+                    N --> E
+                    N --> G
+                    N --> I
+                    
+                    style A fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+                    style C fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+                    style E fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+                    style G fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+                    style I fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+            `;
+            
+            // DApp架构图
+            const dappDiagram = `
+                graph TD
+                    subgraph 用户层
+                        A[用户界面\nWeb/移动应用]
+                    end
+                    
+                    subgraph 应用层
+                        B[前端框架\nReact/Vue/Angular]
+                        C[Web3.js/Ethers.js]
+                        D[智能合约\nSolidity/Vyper]
+                    end
+                    
+                    subgraph 基础设施层
+                        E[以太坊网络]
+                        F[IPFS/Filecoin]
+                        G[预言机\nChainlink]
+                        H[Layer2解决方案]
+                    end
+                    
+                    A -->|用户交互| B
+                    B -->|调用Web3 API| C
+                    C -->|部署/调用| D
+                    D -->|运行于| E
+                    D -->|存储数据| F
+                    D -->|获取外部数据| G
+                    D -->|扩展性能| H
+                    
+                    style A fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+                    style B fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+                    style C fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+                    style D fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+                    style E fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+                    style F fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+                    style G fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+                    style H fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+            `;
+            
+            // 跨链架构图
+            const crossChainDiagram = `
+                graph TD
+                    subgraph 链A
+                        A1[智能合约A]
+                        A2[资产A]
+                    end
+                    
+                    subgraph 链B
+                        B1[智能合约B]
+                        B2[资产B]
+                    end
+                    
+                    subgraph 跨链桥
+                        C[跨链桥合约]
+                        D[中继器网络]
+                        E[验证者网络]
+                    end
+                    
+                    A1 -->|锁定资产| C
+                    C -->| mint资产 | B1
+                    B1 -->|锁定资产| C
+                    C -->| burn资产 | A1
+                    
+                    C -->|事件通知| D
+                    D -->|交易证明| E
+                    E -->|验证| C
+                    
+                    style A1 fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+                    style A2 fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+                    style B1 fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+                    style B2 fill:#e0e7ff,stroke:#6366f1,stroke-width:2px
+                    style C fill:#c7d2fe,stroke:#6366f1,stroke-width:2px
+                    style D fill:#c7d2fe,stroke:#6366f1,stroke-width:2px
+                    style E fill:#c7d2fe,stroke:#6366f1,stroke-width:2px
+            `;
+            
+            // 渲染所有Mermaid图表
+            mermaid.render('blockchainDiagram', blockchainDiagram)
+                .then(result => {
+                    document.getElementById('blockchainDiagram').innerHTML = result.svg;
+                });
+                
+            mermaid.render('consensusDiagram', consensusDiagram)
+                .then(result => {
+                    document.getElementById('consensusDiagram').innerHTML = result.svg;
+                });
+                
+            mermaid.render('dappDiagram', dappDiagram)
+                .then(result => {
+                    document.getElementById('dappDiagram').innerHTML = result.svg;
+                });
+                
+            mermaid.render('crossChainDiagram', crossChainDiagram)
+                .then(result => {
+                    document.getElementById('crossChainDiagram').innerHTML = result.svg;
+                });
+        });
+    </script>
+</body>
+</html>

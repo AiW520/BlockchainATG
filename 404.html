@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content="0; url=/" />
+    <script>
+      // Redirect unknown routes on GitHub Pages to the app using hash-based fallback
+      (function () {
+        var path = window.location.pathname;
+        // If we're already at root, just go to root
+        if (path === '/' || path === '') return;
+        // Build new URL: preserve origin and put pathname after a hash
+        var newUrl = window.location.origin + '/#' + path;
+        // Replace to avoid polluting history
+        window.location.replace(newUrl + window.location.search + window.location.hash);
+      })();
+    </script>
+    <title>Redirecting...</title>
+  </head>
+  <body>
+    <p>Redirecting to the app...</p>
+    <p>If you are not redirected, <a id="link" href="/">click here</a>.</p>
+    <script>document.getElementById('link').href = '/'</script>
+  </body>
+</html>
