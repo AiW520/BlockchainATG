@@ -1,0 +1,15 @@
+{
+  "name": "chat-proxy",
+  "version": "1.0.0",
+  "description": "Simple proxy to call OpenAI-like APIs for the frontend ChatWidget",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "axios": "^1.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.2"
+  }
+}
